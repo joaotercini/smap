@@ -5,12 +5,12 @@ Referência:
     model. In: V.P. Singh, ed. Applied Modelling in Catchment Hydrology. Colorado: Water 
     Resources Publications, 1218–1222.
 """
-def smap(area_drenagem: float, curve_number: int, capacidade_campo: float, abstracao_inicial: float, parametro_recarga_subterranea: float, recessao_escoamento_superficial: float, recessao_escoamento_basico: float, teor_umidade_inicial: float, vazao_basica_inicial: float, serie_precipitacao: list, serie_evaporacao_potencial: list) -> list:
+def smap(area_drenagem: float, capacidade_saturacao_solo: float, capacidade_campo: float, abstracao_inicial: float, parametro_recarga_subterranea: float, recessao_escoamento_superficial: float, recessao_escoamento_basico: float, teor_umidade_inicial: float, vazao_basica_inicial: float, serie_precipitacao: list, serie_evaporacao_potencial: list) -> list:
     """Transforma chuva em vazão
 
     Args:
         area_drenagem (float): Área de drenagem (km²)
-        curve_number (int): Estimado a partir da tabela do SCS
+        capacidade_saturacao_solo (float): Capacidade de saturação do solo (mm)
         capacidade_campo (float): Capacidade de campo (%)
         abstracao_inicial (float): Abstração inicial (mm)
         parametro_recarga_subterranea (float): Parâmetro de recarga subterrânea (%)
@@ -33,9 +33,6 @@ def smap(area_drenagem: float, curve_number: int, capacidade_campo: float, abstr
     if len(serie_evaporacao_potencial) != tamanho_serie:
         raise AttributeError(
             "As séries de precipitação e evaporação potencial tem que ser do mesmo tamanho!")
-
-    # Capacidade de saturação do solo (mm)
-    capacidade_saturacao_solo = 25.4 * (1000 / curve_number - 10) / (1 - teor_umidade_inicial / 100)
 
     # inicialização
     reservatorio_solo = teor_umidade_inicial / 100 * capacidade_saturacao_solo
