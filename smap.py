@@ -1,9 +1,9 @@
 """SMAP (Soil Moisture Accounting Model)
 
 Referência:
-    Lopes, J.C., Braga, J.B.F., and Conejo, J.L., 1982. SMAP – a simplified hydrological 
+    Lopes, J.C., Braga, J.B.F., and Conejo, J.L., 1982. SMAP - a simplified hydrological 
     model. In: V.P. Singh, ed. Applied Modelling in Catchment Hydrology. Colorado: Water 
-    Resources Publications, 1218–1222.
+    Resources Publications, 1218-1222.
 """
 def smap(area_drenagem: float, capacidade_saturacao_solo: float, capacidade_campo: float, abstracao_inicial: float, parametro_recarga_subterranea: float, recessao_escoamento_superficial: float, recessao_escoamento_basico: float, teor_umidade_inicial: float, vazao_basica_inicial: float, serie_precipitacao: list, serie_evaporacao_potencial: list) -> list:
     """Transforma chuva em vazão
@@ -62,13 +62,15 @@ def smap(area_drenagem: float, capacidade_saturacao_solo: float, capacidade_camp
                 (reservatorio_solo - capacidade_campo / 100 * capacidade_saturacao_solo)
 
         escoamento_direto = reservatorio_superficial * (1 - 0.5 ** (1 / recessao_escoamento_superficial))
-
         escoamento_basico = reservatorio_subterraneo * (1 - 0.5 ** (1 / recessao_escoamento_basico))
 
         reservatorio_solo = reservatorio_solo + precipitacao - escoamento_superficial - evaporacao_real - recarga_subterranea
         reservatorio_superficial = reservatorio_superficial + escoamento_superficial - escoamento_direto
         reservatorio_subterraneo = reservatorio_subterraneo + recarga_subterranea - escoamento_basico
 
+        escoamento_direto = reservatorio_superficial * (1 - 0.5 ** (1 / recessao_escoamento_superficial))
+        escoamento_basico = reservatorio_subterraneo * (1 - 0.5 ** (1 / recessao_escoamento_basico))
+        
         vazao = (escoamento_direto + escoamento_basico) * area_drenagem / 86.4
         serie_vazao.append(vazao)
 
