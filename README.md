@@ -1,4 +1,4 @@
-# SMAP (Soil Moisture Accounting Model)
+# SMAP (Soil Moisture Accounting Procedure)
 
 O modelo hidrológico de contabilidade da umidade do solo é relativamente simples em sua estrutura e utiliza a precipitação diária e evapotranspiração potencial média mensal. O objetivo do desenvolvimento foi minimizar a subjetividade no processo de calibração. O equacionamento usa dois reservatórios lineares para representar a zona aerada e saturada do solo. A infiltração é baseada no método do Soil Conservation Service (SCS).
 
