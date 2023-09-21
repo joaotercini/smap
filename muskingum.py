@@ -1,5 +1,3 @@
-import numpy as np
-
 def muskingum(serie_vazao_montante, tempo_viagem_pico, coef_amortecimento = 0.3):
     
     limite_min =  1 / (2 * (1 - coef_amortecimento))

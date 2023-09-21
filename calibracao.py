@@ -4,7 +4,7 @@ from smap import smap
 from scipy.optimize import minimize
 
 
-def calibracao(area_drenagem, serie_precipitacao, serie_evaporacao_potencial, serie_vazao_observada, limites):
+def calibracao(area_drenagem, index, serie_precipitacao, serie_evaporacao_potencial, serie_vazao_observada, limites):
 
     def roda(p):
         p1, p2, p3, p4, p5, p6, p7, p8 = p
@@ -58,7 +58,7 @@ def calibracao(area_drenagem, serie_precipitacao, serie_evaporacao_potencial, se
     res_log_nse = minimize(fun=obj_log_nse, x0=x0, bounds=limites)
     res_kge = minimize(fun=obj_kge, x0=x0, bounds=limites)
 
-    series = pd.DataFrame()
+    series = pd.DataFrame(index=index)
     series['Observada'] = serie_vazao_observada
     series['NSE'] = roda(res_nse.x)
     series['Log-NSE'] = roda(res_log_nse.x)
